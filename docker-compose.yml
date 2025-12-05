@@ -1,0 +1,21 @@
+services:
+  backend:
+    build: backend/.
+    ports:
+      - "5001:8080"
+    environment:
+      database: "Host=172.17.0.1;Port=5433;Username=postgres;Password=postgres;Database=mail_database"
+  
+  database:
+    image: postgres:latest
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=mail_database
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  postgres-data: 
